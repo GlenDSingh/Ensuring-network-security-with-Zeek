@@ -1,0 +1,75 @@
+Running Zeek live
+
+sudo su
+
+cd /opt/zeek - Main directory for Zeek
+
+/opt/zeek/logs - Directory where Zeek stores the log files while its Running
+
+/opt/zeek/etc - Contains the configuration files of Zeek
+
+cd /opt/zeek/etc
+
+nano node.cfg - Configure Zeek to run in sniffer mode
+
+change the interface on the node.cfg file 
+
+save the file 
+
+/opt/zeek/etc/nano networks.cfg - Sets the networks of your organization here 
+
+/opt/zeek/etc/less zeekctl.cfg - Master configuration file 
+
+************************************************************************
+
+Use the following commands if sniffing in NAT mode:
+
+Zeek will drop packets with bad checksum values
+
+sudo apt install ethtool
+
+ethtool -K enp0s3 rx off tx off sg off tso off gso off gro off
+
+ethtool -K enp0s3 - Checks the status of checksum on interface 
+
+************************************************************************
+
+To run Zeek live:
+
+export PATH=/opt/zeek/bin:$PATH - Use this one
+zeekctl install - Use this command whenever you make any changes to the configuration files on Zeek
+zeekctl start
+zeekctl status
+zeekctl -h
+
+*************************************************************************
+
+Checking logs:
+
+cd opt/zeek/logs
+ls
+ls -lah
+
+generate some traffic 
+ping
+wget
+nslookup
+
+recheck again - ls
+
+less <filename>
+
+grep *.log | grep "UID" - to determine if this shows in other logs
+
+
+zeekctl stop - Stop Zeek from running
+zeekctl status - Verify Zeek status
+
+****************************************************************************
+
+
+Read only mode:
+
+zeek -C -r <filename.pcap>
+./zeek -C -r <filename.pcap>
+
